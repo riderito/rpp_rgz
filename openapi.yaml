@@ -1,9 +1,12 @@
 definitions: {}
 info:
-  description: powered by Flasgger
+  description: "API \u0434\u043B\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\
+    \u0438\u044F \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u043D\u044B\u043C\u0438\
+    \ \u043A\u043E\u043D\u0442\u0430\u043A\u0442\u0430\u043C\u0438"
   termsOfService: /tos
-  title: A swagger API
-  version: 0.0.1
+  title: "\u0422\u0435\u043B\u0435\u0444\u043E\u043D\u043D\u0430\u044F \u043A\u043D\
+    \u0438\u0433\u0430 API"
+  version: 1.0.0
 paths:
   /contacts:
     post:
