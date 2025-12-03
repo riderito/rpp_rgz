@@ -61,7 +61,9 @@ jobs:
       run: npm i -g @redocly/cli@latest
     
     - name: Генерация документации через Redocly
-      run: redocly build-docs docs/openapi.yaml
+      run: |
+        redocly build-docs docs/openapi.yaml
+        mv redoc-static.html docs/index.html
     
     - name: Деплой на GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
