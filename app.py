@@ -48,7 +48,12 @@ def create_contact():
             phone:
               type: string
       400:
-        description: Ошибка
+        description: Некорректные данные или иная ошибка
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
     """
     global current_id
 
@@ -103,6 +108,11 @@ def get_contact(contact_id):
               type: string
       404:
         description: Контакт не найден
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
     """
     contact = contacts.get(contact_id)
 
@@ -137,6 +147,11 @@ def delete_contact(contact_id):
               type: object
       404:
         description: Контакт не найден
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
     """
     if contact_id not in contacts:
         return jsonify({'error': 'Контакт не найден'}), 404
