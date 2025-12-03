@@ -30,3 +30,42 @@ jobs:
     
     - name: Проверка безопасности
       run: bandit -r .
+
+  # Джоба - Генерация OpenAPI документации
+  generate-docs:
+    runs-on: ubuntu-latest
+    # Выполняется только если security-check завершился успешно
+    needs: security-check
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Настройка Python окружения
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Установка Python зависимостей
+      run: pip install -r requirements.txt
+    
+    - name: Генерация спецификации OpenAPI
+      run: |
+        mkdir -p docs
+        python gen_openapi.py
+    
+    - name: Установка Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Установка Redocly
+      run: npm i -g @redocly/cli@latest
+    
+    - name: Генерация документации через Redocly
+      run: redocly build-docs docs/openapi.yaml
+    
+    - name: Деплой на GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        keep_files: true
