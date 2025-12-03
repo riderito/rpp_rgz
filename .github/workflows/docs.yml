@@ -1,0 +1,32 @@
+# Название всего пайплайна
+name: Генерация и публикация документации
+
+# Триггеры запуска пайплайна
+on:
+  # При пуше в ветку main
+  push:
+    branches: [main]
+
+# Определяем выполняемые джобы
+jobs:
+  # Джоба - проверка безопасности
+  security-check:
+    # ВМ, на которой будет выполняться задача
+    runs-on: ubuntu-latest
+    # Определяем последовательность шагов джобы
+    steps:
+    # Клонируем файлы репозитория на ВМ
+    - uses: actions/checkout@v4
+
+    - name: Настройка Python окружения
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Установка библиотеки bandit
+      run: |
+        python -m pip install --upgrade pip # Обновляем pip до последней версии
+        pip install bandit
+    
+    - name: Проверка безопасности
+      run: bandit -r .
