@@ -2,6 +2,13 @@ from flask import Flask, request, jsonify
 from flasgger import Swagger
 
 app = Flask(__name__)
+
+app.config['SWAGGER'] = {
+    'title': 'Телефонная книга API',
+    'description': 'API для управления телефонными контактами',
+    'version': '1.0.0'
+}
+
 Swagger(app)
 
 # Словарь для хранения контактов
