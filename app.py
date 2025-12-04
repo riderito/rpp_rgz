@@ -4,6 +4,7 @@ from flasgger import Swagger
 app = Flask(__name__)
 
 app.config['SWAGGER'] = {
+    'openapi': '3.0.0',
     'title': 'Телефонная книга API',
     'description': 'API для управления телефонными контактами',
     'version': '1.0.0'
