@@ -1,13 +1,17 @@
 import yaml
+# Импортируем Flask-приложение
 from app import app
 
 
 def generate_openapi_yaml():
-    # Создаем тестового клиента для получения спецификации
+    # Создаем тестового клиента приложения для получения спецификации
     with app.test_client() as client:
+        # Отправляем запрос на эндпоинт Flasgger
         response = client.get('/apispec_1.json')
 
+        # Проверяем успешность запроса и содержание ответа
         if response.status_code == 200 and response.is_json:
+            # Получаем JSON спецификацию
             openapi_spec = response.json
 
             # Сохраняем в YAML формате

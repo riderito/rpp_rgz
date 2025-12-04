@@ -7,10 +7,7 @@ app.config['SWAGGER'] = {
     'openapi': '3.0.0',
     'title': 'Телефонная книга API',
     'description': 'API для управления телефонными контактами',
-    'version': '1.0.0',
-    'contact': {
-            'name': 'Адалинская и Степук'
-        }
+    'version': '1.0.0'
 }
 
 Swagger(app)
@@ -28,7 +25,6 @@ def create_contact():
     ---
     tags:
       - Контакты
-    summary: Создание нового контакта в телефонной книге
     description: |
       Этот эндпоинт позволяет создать новый контакт.
       Требуются обязательные поля name и phone.
@@ -108,7 +104,6 @@ def get_contact(contact_id):
     ---
     tags:
       - Контакты
-    summary: Получение контакта по ID
     description: Возвращает полную информацию о контакте по его уникальному идентификатору.
     parameters:
       - name: contact_id
@@ -158,7 +153,6 @@ def delete_contact(contact_id):
     ---
     tags:
       - Контакты
-    summary: Удаление контакта по ID
     description: Удаляет контакт из телефонной книги по его уникальному идентификатору.
     parameters:
       - name: contact_id
