@@ -55,7 +55,7 @@ jobs:
     - name: Установка Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '18'
     
     - name: Установка Redocly
       run: npm i -g @redocly/cli@latest

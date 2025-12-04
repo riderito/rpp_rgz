@@ -7,7 +7,10 @@ app.config['SWAGGER'] = {
     'openapi': '3.0.0',
     'title': 'Телефонная книга API',
     'description': 'API для управления телефонными контактами',
-    'version': '1.0.0'
+    'version': '1.0.0',
+    'contact': {
+            'name': 'Адалинская и Степук'
+        }
 }
 
 Swagger(app)
@@ -25,43 +28,52 @@ def create_contact():
     ---
     tags:
       - Контакты
-    parameters:
-      - name: body
-        in: body
-        required: true
-        schema:
-          type: object
-          required:
-            - name
-            - phone
-          properties:
-            name:
-              type: string
-              description: Имя контакта
-              example: "Сидр Сидоров"
-            phone:
-              type: string
-              description: Номер телефона
-              example: "+79123456789"
+    summary: Создание нового контакта в телефонной книге
+    description: |
+      Этот эндпоинт позволяет создать новый контакт.
+      Требуются обязательные поля name и phone.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - name
+              - phone
+            properties:
+              name:
+                type: string
+                description: Имя контакта
+                example: "Сидр Сидоров"
+              phone:
+                type: string
+                description: Номер телефона
+                example: "+79123456789"
     responses:
       201:
         description: Контакт создан
-        schema:
-          type: object
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-            phone:
-              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: Уникальный идентификатор контакта
+                name:
+                  type: string
+                phone:
+                  type: string
       400:
-        description: Некорректные данные или иная ошибка
-        schema:
-          type: object
-          properties:
-            error:
-              type: string
+        description: Ошибка в данных запроса
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
     """
     global current_id
 
@@ -96,31 +108,40 @@ def get_contact(contact_id):
     ---
     tags:
       - Контакты
+    summary: Получение контакта по ID
+    description: Возвращает полную информацию о контакте по его уникальному идентификатору.
     parameters:
       - name: contact_id
         in: path
-        type: integer
         required: true
-        description: ID контакта
+        description: Уникальный идентификатор контакта
+        schema:
+          type: integer
+          format: int64
+        example: 1
     responses:
       200:
         description: Контакт найден
-        schema:
-          type: object
-          properties:
-            id:
-              type: integer
-            name:
-              type: string
-            phone:
-              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                phone:
+                  type: string
       404:
         description: Контакт не найден
-        schema:
-          type: object
-          properties:
-            error:
-              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
     """
     contact = contacts.get(contact_id)
 
@@ -137,29 +158,38 @@ def delete_contact(contact_id):
     ---
     tags:
       - Контакты
+    summary: Удаление контакта по ID
+    description: Удаляет контакт из телефонной книги по его уникальному идентификатору.
     parameters:
       - name: contact_id
         in: path
-        type: integer
         required: true
-        description: ID контакта
+        description: Уникальный идентификатор контакта
+        schema:
+          type: integer
+          format: int64
+        example: 1
     responses:
       200:
-        description: Контакт удален
-        schema:
-          type: object
-          properties:
-            message:
-              type: string
-            contact:
+        description: Контакт успешно удален
+        content:
+          application/json:
+            schema:
               type: object
+              properties:
+                message:
+                  type: string
+                contact:
+                  type: object
       404:
         description: Контакт не найден
-        schema:
-          type: object
-          properties:
-            error:
-              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
     """
     if contact_id not in contacts:
         return jsonify({'error': 'Контакт не найден'}), 404
