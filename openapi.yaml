@@ -43,16 +43,6 @@ paths:
         '201':
           content:
             application/json:
-              examples:
-                success:
-                  summary: "\u041F\u0440\u0438\u043C\u0435\u0440 \u0443\u0441\u043F\
-                    \u0435\u0448\u043D\u043E\u0433\u043E \u043E\u0442\u0432\u0435\u0442\
-                    \u0430"
-                  value:
-                    id: 1
-                    name: "\u0421\u0438\u0434\u0440 \u0421\u0438\u0434\u043E\u0440\
-                      \u043E\u0432"
-                    phone: '+79123456789'
               schema:
                 properties:
                   id:
@@ -71,13 +61,6 @@ paths:
         '400':
           content:
             application/json:
-              examples:
-                bad_request:
-                  summary: "\u041F\u0440\u0438\u043C\u0435\u0440 \u043E\u0448\u0438\
-                    \u0431\u043A\u0438"
-                  value:
-                    error: "\u0422\u0440\u0435\u0431\u0443\u044E\u0442\u0441\u044F\
-                      \ \u043F\u043E\u043B\u044F name \u0438 phone"
               schema:
                 properties:
                   error:
