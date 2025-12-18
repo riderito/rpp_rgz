@@ -134,7 +134,6 @@ def get_contact(contact_id):
                 phone:
                   type: string
                   example: "+79987654321"
-
       404:
         description: Контакт не найден
         content:
