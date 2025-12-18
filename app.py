@@ -74,6 +74,7 @@ def create_contact():
                   type: string
                   example: "Требуются поля name и phone"
     """
+    # Объявляем, что будем изменять глобальную переменную
     global current_id
 
     try:
