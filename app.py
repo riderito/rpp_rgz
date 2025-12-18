@@ -23,8 +23,7 @@ def create_contact():
     """
     Создание нового контакта
     ---
-    tags:
-      - Контакты
+    tags: ["Контакты"]
     description: |
       Этот эндпоинт позволяет создать новый контакт.
       Требуются обязательные поля name и phone.
@@ -57,10 +56,13 @@ def create_contact():
                 id:
                   type: integer
                   description: Уникальный идентификатор контакта
+                  example: 5
                 name:
                   type: string
+                  example: "Сидр Сидоров"
                 phone:
                   type: string
+                  example: "+79123456789"
       400:
         description: Ошибка в данных запроса
         content:
@@ -70,6 +72,7 @@ def create_contact():
               properties:
                 error:
                   type: string
+                  example: "Требуются поля name и phone"
     """
     global current_id
 
@@ -102,8 +105,7 @@ def get_contact(contact_id):
     """
     Получение информации о контакте
     ---
-    tags:
-      - Контакты
+    tags: ["Контакты"]
     description: Возвращает полную информацию о контакте по его уникальному идентификатору.
     parameters:
       - name: contact_id
@@ -113,7 +115,7 @@ def get_contact(contact_id):
         schema:
           type: integer
           format: int64
-        example: 1
+        example: 3
     responses:
       200:
         description: Контакт найден
@@ -124,10 +126,14 @@ def get_contact(contact_id):
               properties:
                 id:
                   type: integer
+                  example: 3
                 name:
                   type: string
+                  example: "Петр Петров"
                 phone:
                   type: string
+                  example: "+79987654321"
+
       404:
         description: Контакт не найден
         content:
@@ -137,6 +143,7 @@ def get_contact(contact_id):
               properties:
                 error:
                   type: string
+                  example: "Контакт не найден"
     """
     contact = contacts.get(contact_id)
 
@@ -151,8 +158,7 @@ def delete_contact(contact_id):
     """
     Удаление контакта
     ---
-    tags:
-      - Контакты
+    tags: ["Контакты"]
     description: Удаляет контакт из телефонной книги по его уникальному идентификатору.
     parameters:
       - name: contact_id
@@ -162,7 +168,7 @@ def delete_contact(contact_id):
         schema:
           type: integer
           format: int64
-        example: 1
+        example: 4
     responses:
       200:
         description: Контакт успешно удален
@@ -173,8 +179,19 @@ def delete_contact(contact_id):
               properties:
                 message:
                   type: string
+                  example: "Контакт удален"
                 contact:
                   type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 4
+                    name:
+                      type: string
+                      example: "Иван Иванов"
+                    phone:
+                      type: string
+                      example: "+79132457680"
       404:
         description: Контакт не найден
         content:
@@ -184,6 +201,7 @@ def delete_contact(contact_id):
               properties:
                 error:
                   type: string
+                  example: "Контакт не найден"
     """
     if contact_id not in contacts:
         return jsonify({'error': 'Контакт не найден'}), 404
