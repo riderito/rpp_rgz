@@ -61,6 +61,13 @@ def create_contact():
                   type: string
                 phone:
                   type: string
+            examples:
+              success:
+                summary: "Пример успешного ответа"
+                value:
+                  id: 1
+                  name: "Сидр Сидоров"
+                  phone: "+79123456789"
       400:
         description: Ошибка в данных запроса
         content:
@@ -70,6 +77,11 @@ def create_contact():
               properties:
                 error:
                   type: string
+            examples:
+              bad_request:
+                summary: "Пример ошибки"
+                value:
+                  error: "Требуются поля name и phone"
     """
     global current_id
 
