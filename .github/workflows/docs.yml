@@ -31,7 +31,7 @@ jobs:
     - name: Проверка безопасности
       run: bandit -r .
 
-  # Джоба - Генерация OpenAPI документации
+  # Джоба - Генерация документации
   generate-docs:
     runs-on: ubuntu-latest
     # Выполняется только если security-check завершился успешно
